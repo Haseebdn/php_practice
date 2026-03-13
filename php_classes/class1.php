@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
     <h2>Class 1</h2>
 
     <?php
@@ -68,6 +69,19 @@
         <?php echo $alert; ?>
     </h2>
 
+    <!-- array and loop -->
+     
+    <?php
+    $length = count($fruits);
+    for ($i = 0; $i < $length; $i++) {
+        echo "<p>$fruits[$i]</p>";
+    }
+    ?>
+
+
+    <?php foreach ($fruits as $key => $value) {
+        echo "key = $key and value= $value <br>";
+    }   ?>
 
 </body>
 

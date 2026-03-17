@@ -71,7 +71,55 @@ include "./handler/connection.php";
             </div> <br>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
+
+
     </div>
+    <table class="table w-75 mt-5 mx-auto">
+        
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        <?php 
+            
+    
+            $query = "SELECT * FROM `infotable` ORDER BY id ASC";
+            
+
+
+            $mysql = mysqli_query($conn, $query);
+
+            while($row = mysqli_fetch_assoc($mysql)){
+                
+            ?>
+
+            <tr>
+                <td><?php echo $row['id']??'' ?></td>
+                <td><?php echo $row['user_name'] ?></td>
+                <td><?php echo $row['u_email'] ?></td>
+                <td><?php echo $row['p_number']??'' ?></td>
+                <td><?php echo $row['gender']??'' ?></td>
+                <td><?php echo $row['created_at']??'' ?></td>
+                <td>
+                    <!-- <button></button> -->
+                </td>
+            </tr>
+            <?php
+            }
+
+        ?>
+     
+        </tbody>
+    </table>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -83,7 +131,6 @@ include "./handler/connection.php";
                 alertBox.style.display = "none";
             }, 2000);
         }
-
     </script>
 </body>
 

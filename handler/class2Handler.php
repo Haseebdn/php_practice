@@ -32,8 +32,7 @@ if (isset($_POST) && !empty($_POST)) {
         $response = ['msg' => "Data Insertion failed. Error: $error", "success" => false];
     }
 
-    // $response = json_encode($response);
     $is_success = $response['success'] ? 1 : 0;
-header("location:../class2.php?success=$is_success");
-exit();
+    header("location:../class2.php?success=$is_success");
+    exit();
 }

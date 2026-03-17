@@ -9,6 +9,7 @@ include "./handler/connection.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <title>Class 2</title>
@@ -75,7 +76,7 @@ include "./handler/connection.php";
 
     </div>
     <table class="table w-75 mt-5 mx-auto">
-        
+
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -89,35 +90,36 @@ include "./handler/connection.php";
             </tr>
         </thead>
         <tbody>
-        <?php 
-            
-    
+            <?php
+
+
             $query = "SELECT * FROM `infotable` ORDER BY id ASC";
-            
+
 
 
             $mysql = mysqli_query($conn, $query);
 
-            while($row = mysqli_fetch_assoc($mysql)){
-                
+            while ($row = mysqli_fetch_assoc($mysql)) {
+
             ?>
 
-            <tr>
-                <td><?php echo $row['id']??'' ?></td>
-                <td><?php echo $row['user_name'] ?></td>
-                <td><?php echo $row['u_email'] ?></td>
-                <td><?php echo $row['p_number']??'' ?></td>
-                <td><?php echo $row['gender']??'' ?></td>
-                <td><?php echo $row['created_at']??'' ?></td>
-                <td>
-                    <!-- <button></button> -->
-                </td>
-            </tr>
+                <tr>
+                    <td><?php echo $row['id'] ?? '' ?></td>
+                    <td><?php echo $row['user_name'] ?></td>
+                    <td><?php echo $row['u_email'] ?></td>
+                    <td><?php echo $row['p_number'] ?? '' ?></td>
+                    <td><?php echo $row['gender'] ?? '' ?></td>
+                    <td><?php echo $row['created_at'] ?? '' ?></td>
+                    <td>
+                        <button class="btn btn-primary"><i class="fa-solid fa-pen"></i></button>
+                        <button class=" btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
             <?php
             }
 
-        ?>
-     
+            ?>
+
         </tbody>
     </table>
 

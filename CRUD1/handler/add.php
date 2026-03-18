@@ -19,7 +19,7 @@ if (isset($_POST) && !empty($_POST)) {
 
     if ($full_name == '' || $email == '' || $pnumber == '' || $gender == '') {
         $response = ['msg' => "Please fillout values correctly", "success" => false];
-        header("location:../class2.php?success=0");
+        header("location:../list.php?success=0");
         return;
     }
 
@@ -33,6 +33,6 @@ if (isset($_POST) && !empty($_POST)) {
     }
 
     $is_success = $response['success'] ? 1 : 0;
-    header("location:../class2.php?success=$is_success");
+    header("location:../list.php?success=$is_success");
     exit();
 }

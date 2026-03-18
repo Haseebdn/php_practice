@@ -41,7 +41,7 @@
          </div>
          <hr>
          <div class="w-100 d-flex justify-content-end gap-2">
-             <a href="./list.php" class="btn btn-primary">Submit</a>
+             <button type="submit" class="btn btn-primary">Submit</button>
              <a href="./list.php" class="btn btn-secondary">Cancel</a>
          </div>
      </form>

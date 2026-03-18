@@ -9,6 +9,22 @@ include "./partials/header.php";
         <h2>User Data</h2>
         <a class="btn btn-primary" href="./userForm.php">Add</a>
     </div>
+
+    <?php
+    if (isset($_GET['success'])) {
+        if ($_GET['success'] == 1) {
+    ?>
+            <div class="alert alert-success">Date saved successfully</div>
+        <?php
+        } else {
+        ?>
+            <div class="alert alert-danger">Date save failed</div>
+    <?php
+        }
+    }
+    ?>
+
+
     <form class="d-flex my-5 gap-5">
         <input class="form-control w-50" name="search_name" type="search" placeholder="Search By Name" value="<?php echo (isset($_GET['search_name'])) ? $_GET['search_name'] : '' ?>">
         <div>

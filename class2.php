@@ -79,13 +79,13 @@ include "./handler/connection.php";
 
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Created At</th>
-                <th scope="col">Actions</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Created At</th>
+                <th>Actions</th>
 
             </tr>
         </thead>

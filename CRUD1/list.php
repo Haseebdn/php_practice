@@ -6,7 +6,7 @@ include "./partials/header.php";
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center">
 
-        <h2>User Data</h2>
+        <h2>Students Data</h2>
         <a class="btn btn-primary" href="./userForm.php">Add</a>
     </div>
 
@@ -77,7 +77,7 @@ include "./partials/header.php";
                         <td><?php echo $row['gender'] ?? '' ?></td>
                         <td><?php echo $row['created_at'] ?? '' ?></td>
                         <td>
-                            <a class="btn btn-sm btn-primary"><i class="fa-solid fa-pen"></i></a>
+                            <a class="btn btn-sm btn-primary" href="./userForm.php?id=<?php echo $row['id'] ?? '' ?>"><i class="fa-solid fa-pen"></i></a>
                             <a class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>

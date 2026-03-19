@@ -10,11 +10,7 @@
         $sql = mysqli_query($conn, $query);
 
         $record = mysqli_fetch_assoc($sql);
-
-    }
-
-    ?>
- 
+    } ?>
 
  <div class="container d-flex flex-column  align-items-center">
 

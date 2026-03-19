@@ -22,6 +22,14 @@ include "./partials/header.php";
     <?php
         }
     }
+
+    if (isset($_GET['delete-success'])) {
+        if ($_GET['delete-success'] == 1) {
+            echo '<div class="alert alert-success">Record Deleted successfully</div>';
+        } else {
+            echo '<div class="alert alert-success">Record Deletion Failed</div>';
+        }
+    }
     ?>
 
 
@@ -57,10 +65,10 @@ include "./partials/header.php";
 
                 $fullname = $_GET['search_name'];
 
-                $query = $query . "WHERE `user_name` LIKE '%$fullname%'";
+                $query = $query . " WHERE `user_name` LIKE '%$fullname%'";
             }
 
-            $query = $query . "ORDER BY id ASC";
+            $query = $query . " ORDER BY id ASC";
 
             $mysql = mysqli_query($conn, $query);
 
@@ -78,7 +86,7 @@ include "./partials/header.php";
                         <td><?php echo $row['created_at'] ?? '' ?></td>
                         <td>
                             <a class="btn btn-sm btn-primary" href="./userForm.php?id=<?php echo $row['id'] ?? '' ?>"><i class="fa-solid fa-pen"></i></a>
-                            <a class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+                            <a class="btn btn-sm btn-danger"  href="./handler/delete.php?id=<?php echo $row['id'] ?? '' ?>"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
 

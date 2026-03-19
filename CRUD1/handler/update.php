@@ -10,9 +10,9 @@ if (isset($_POST) && !empty($_POST)) {
     $email = $_POST['u_email'] ?? '';
     $pnumber = $_POST['p_number'] ?? '';
     $gender = $_POST['gender'] ?? '';
-    $id= $_GET['id'];
+    $id = $_GET['id'];
 
-    
+
 
     if ($full_name == '' || $email == '' || $pnumber == '' || $gender == '') {
         $response = ['msg' => "Please fillout values correctly", "success" => false];
@@ -33,4 +33,3 @@ if (isset($_POST) && !empty($_POST)) {
     header("location:../list.php?success=$is_success");
     exit();
 }
-?>

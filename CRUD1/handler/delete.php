@@ -5,6 +5,8 @@ if (isset($_GET) && !empty($_GET)) {
 
     $id = $_GET['id'];
 
+    
+
     $query = "DELETE FROM `infotable` WHERE `id`='$id'";
     
     if (mysqli_query($conn, $query)) {

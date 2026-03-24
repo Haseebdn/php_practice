@@ -27,10 +27,10 @@
             }
         }
         ?>
-     <form action="<?php echo isset($_GET['id']) ? './handler/update.php?id=' . $_GET['id'] : './handler/add.php'; ?>" method="post" class="w-50 my-4">
+     <form action="<?php echo isset($_GET['id']) ? './handler/update.php?id=' . $_GET['id'] : './handler/add.php'; ?>" method="POST" enctype="multipart/form-data" class="w-50 my-4">
          <h2 class="fw-bold"><?php echo isset($_GET['id']) ? "Update Student" : "Add Student" ?></h2>
          <hr>
-         <div >
+         <div>
              <label class="fw-bold" for="user_name">Name:</label><br>
              <input class="form-control w-100" type="text" id="user_name" name="user_name" value="<?php echo @$record['user_name'] ?>"><br>
          </div>
@@ -43,6 +43,11 @@
              <input class="form-control w-100" type="tel" id="p_number" name="p_number" value="<?php echo @$record['p_number'] ?>"><br>
          </div>
 
+
+         <div class="mb-4">
+             <label for="img" class="fw-bold">Profile Picture</label>
+             <input type="file" name="profile_img" class="form-control" id="img">
+         </div>
          <?php
             $checkValue = "male";
             if (isset($record['gender']) && $record['gender'] == "female") {
@@ -51,11 +56,6 @@
                 $checkValue = "other";
             }
             ?>
-
-         <div class="mb-4">
-             <label for="img" class="fw-bold">Profile Picture</label>
-             <input type="file" name="profile_img" class="form-control" id="img">
-         </div>
          <h6 class="fw-bold">Gender:</h6>
          <div class="container mb-4">
              <input type="radio" name="gender" value="male" <?php echo $checkValue == "male" ? "checked" : "" ?>> Male
@@ -70,13 +70,27 @@
              <input class="ms-1" type="checkbox" name="subject[]" value="physics" <?php echo $checkValue == "physics" ? "checked" : "" ?>> Physics
 
          </div>
-
+         <?php
+            $query = "SELECT id,teacher_name FROM `teachers`";
+            $sql = mysqli_query($conn, $query);
+            ?>
          <div class="mb-4">
-            <label class="fw-bold" for="teacher_name">Teacher</label>
-             <select class="form-select" id="teacher_name" name="teacher">
-                 <option value="">something</option>
+             <label class="fw-bold" for="teacher_name">Teacher</label>
+             <select class="form-select" id="teacher_name" name="teacher_id">
+                 <?php while ($row = mysqli_fetch_assoc($sql)) {
+                    ?>
+                     <option value="<?php echo $row['id'] ?>"><?php echo $row['teacher_name'] ?></option>
+                 <?php
+                    }
+                    ?>
+
              </select>
 
+         </div>
+
+         <div class="mb-4">
+             <label for="">Add Certificates</label>
+             <input type="file" name="images[]" class="form-control" multiple>
          </div>
 
          <hr>

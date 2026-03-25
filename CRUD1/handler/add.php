@@ -34,7 +34,7 @@ if (isset($_POST) && !empty($_POST)) {
     }
 
     $picName=time().rand(1,10000).'.'.$ext;
-    move_uploaded_file($_FILES['profile_img']['tmp_name'],'./uploads/profilePictures/'.$picName);
+    move_uploaded_file($_FILES['profile_img']['tmp_name'],'../uploads/profilePictures/'.$picName);
 
     if ($full_name == '' || $email == '' || $pnumber == '' || $gender == '') {
         $response = ['msg' => "Please fillout values correctly", "success" => false];

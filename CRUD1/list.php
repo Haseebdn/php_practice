@@ -3,9 +3,17 @@ include "./handler/connection.php";
 include "./partials/header.php";
 ?>
 
-<div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center">
+<style>
+    .subject {
+        background-color: skyblue;
+        padding: 2px 8px;
+        margin: 1px;
+        border-radius: 4px;
+    }
+</style>
 
+<div class=" w-100 container-fluid px-3 my-5">
+    <div class="w-100 d-flex justify-content-between align-items-center">
         <h2>Students Data</h2>
         <a class="btn btn-primary" href="./userForm.php">Add</a>
     </div>
@@ -41,17 +49,20 @@ include "./partials/header.php";
             <a class="btn btn-secondary" href="./list.php">Reset</a>
         </div>
     </form>
-    <table class="table">
+    <table class=" w-100 table">
 
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Gender</th>
-                <th>Created At</th>
-                <th>Actions</th>
+                <th scope="col">ID</th>
+                <th scope="col">Profile Pic</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Subjects</th>
+                <th scope="col">Teacher</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Actions</th>
 
             </tr>
         </thead>
@@ -59,16 +70,20 @@ include "./partials/header.php";
             <?php
 
 
-            $query = "SELECT * FROM `infotable`";
+            $query = "SELECT t.*,i.*, 
+                i.id AS stdID, 
+                i.created_at AS stdCreatedAt 
+                FROM infotable AS i 
+                LEFT JOIN teachers AS t 
+                ON i.teacher_id = t.id";
 
-            if (isset($_GET['search_name'])) {
-
-                $fullname = $_GET['search_name'];
-
-                $query = $query . " WHERE `user_name` LIKE '%$fullname%'";
+            if (isset($_GET['fullName'])) {
+                $fullname = $_GET['fullName'];
+                $query .= " WHERE i.user_name LIKE '%$fullname%'";
             }
 
-            $query = $query . " ORDER BY id ASC";
+
+            $query = $query . " ORDER BY stdID ASC";
 
             $mysql = mysqli_query($conn, $query);
 
@@ -78,15 +93,28 @@ include "./partials/header.php";
                 while ($row = mysqli_fetch_assoc($mysql)) {
             ?>
                     <tr>
-                        <td><?php echo $row['id'] ?? '' ?></td>
+                        <td><?php echo $row['stdID'] ?? '' ?></td>
+                        <td><img src="./uploads/profilePictures/<?php echo $row['profile_img'] ?? '' ?>" alt="" width="50"></td>
                         <td><?php echo $row['user_name'] ?></td>
                         <td><?php echo $row['u_email'] ?></td>
                         <td><?php echo $row['p_number'] ?? '' ?></td>
                         <td><?php echo $row['gender'] ?? '' ?></td>
-                        <td><?php echo $row['created_at'] ?? '' ?></td>
+                        <td><?php
+                            if ($row['subject']) {
+                                $subjects = explode(',', $row['subject']);
+                                if ($subjects) {
+                                    foreach ($subjects AS $sub) {
+                                        echo  '<span class="subject">' . ucfirst($sub) . '</span>';
+                                    }
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $row['teacher_name'] ?? 'N/A' ?></td>
+                        <td><?php echo $row['stdCreatedAt'] ?? '' ?></td>
                         <td>
-                            <a class="btn btn-sm btn-primary" href="./userForm.php?id=<?php echo $row['id'] ?? '' ?>"><i class="fa-solid fa-pen"></i></a>
-                            <a class="btn btn-sm btn-danger"  href="./handler/delete.php?id=<?php echo $row['id'] ?? '' ?>"><i class="fa-solid fa-trash"></i></a>
+                            <a class="btn btn-sm btn-primary" href="./userForm.php?id=<?php echo $row['stdID'] ?? '' ?>"><i class="fa-solid fa-pen"></i></a>
+                            <a class="btn btn-sm btn-danger" href="./handler/delete.php?id=<?php echo $row['stdID'] ?? '' ?>"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
 
@@ -95,7 +123,7 @@ include "./partials/header.php";
             } else {
                 ?>
                 <tr>
-                    <td colspan="7" align="center">No Records Found</td>
+                    <td colspan="10" align="center">No Records Found</td>
                 </tr>
 
             <?php

@@ -10,7 +10,7 @@ if (isset($_POST) && !empty($_POST)) {
     // header("refresh:3;url=../class2.php");
     
     $response = [];
-    
+
     $full_name = mysqli_real_escape_string($conn, $_POST['user_name'] ?? '');
     $email = mysqli_real_escape_string($conn, $_POST['u_email'] ?? '');
     $pnumber = mysqli_real_escape_string($conn, $_POST['p_number'] ?? '');
@@ -19,12 +19,22 @@ if (isset($_POST) && !empty($_POST)) {
     $subjects = mysqli_real_escape_string($conn, implode(',', $_POST['subject']));
     $teacher_id = mysqli_real_escape_string($conn, $_POST['teacher_id']);
     $pic = $_FILES['profile_img']['name'];
-    $certificates=$_FILES['images']['name'];
+    // $certificates=$_FILES['images']['name'];
     $created_at = date('Y-m-d h:i');
 
-    // print_r($pic);
-    // print_r($certificates);
-    die;
+    // echo '<pre>';
+    // print_r($_FILES);
+    // echo '</pre>';
+    // die;
+
+    $ext = strtolower(pathinfo($pic, PATHINFO_EXTENSION));
+
+    if(!in_array($ext,['jpg','jpeg','png'])){
+        $response = ['msg' => "Data Insertion failed. Error: Invalid file format", "success" => false];
+    }
+
+    $picName=time().rand(1,10000).'.'.$ext;
+    move_uploaded_file($_FILES['profile_img']['tmp_name'],'./uploads/profilePictures/'.$picName);
 
     if ($full_name == '' || $email == '' || $pnumber == '' || $gender == '') {
         $response = ['msg' => "Please fillout values correctly", "success" => false];
@@ -32,7 +42,7 @@ if (isset($_POST) && !empty($_POST)) {
         return;
     }
 
-    $query = "INSERT INTO `infotable` (`user_name`, `u_email`, `p_number`, `gender`,`subject`,`created_at`) VALUES ('$full_name', '$email', '$pnumber', '$gender','$subjects','$created_at')";
+    $query = "INSERT INTO `infotable` (`user_name`, `u_email`, `p_number`,`profile_img`, `gender`,`subject`,`teacher_id`,`created_at`) VALUES ('$full_name', '$email', '$pnumber','$picName', '$gender','$subjects','$teacher_id','$created_at')";
 
     if (mysqli_query($conn, $query)) {
         $response = ['msg' => "Data Inserted Successfully", "success" => true];

@@ -71,7 +71,7 @@
 
          </div>
          <?php
-            $query = "SELECT id,teacher_name FROM `teachers`";
+            $query = "SELECT id,teacher_name FROM `teachers` WHERE is_active=1";
             $sql = mysqli_query($conn, $query);
             ?>
          <div class="mb-4">
@@ -88,10 +88,10 @@
 
          </div>
 
-         <div class="mb-4">
+         <!-- <div class="mb-4">
              <label for="">Add Certificates</label>
              <input type="file" name="images[]" class="form-control" multiple>
-         </div>
+         </div> -->
 
          <hr>
          <div class="w-100 d-flex justify-content-end gap-2">

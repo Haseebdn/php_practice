@@ -115,6 +115,7 @@ include "./partials/header.php";
                         <td>
                             <a class="btn btn-sm btn-primary" href="./userForm.php?id=<?php echo $row['stdID'] ?? '' ?>"><i class="fa-solid fa-pen"></i></a>
                             <a class="btn btn-sm btn-danger" href="./handler/delete.php?id=<?php echo $row['stdID'] ?? '' ?>"><i class="fa-solid fa-trash"></i></a>
+                            <a href="./handler/view.php?id=<?php echo $row['stdID'] ?? '' ?>" class="fw-bold text-decoration-none">View</>
                         </td>
                     </tr>
 

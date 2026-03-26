@@ -128,6 +128,7 @@
          <div class="w-100 d-flex justify-content-end gap-2">
              <button type="submit" class="btn btn-primary"><?php echo isset($_GET['id']) ? 'Update' :  'Add'  ?></button>
              <a href="./list.php" class="btn btn-secondary">Cancel</a>
+
          </div>
      </form>
  </div>

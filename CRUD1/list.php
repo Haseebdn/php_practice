@@ -79,7 +79,7 @@ include "./partials/header.php";
 
             if (isset($_GET['fullName'])) {
                 $fullname = $_GET['fullName'];
-                $query .= " WHERE i.user_name LIKE '%$fullname%'";
+                $query .= " WHERE i.full_name LIKE '%$fullname%' OR t.teacher_name LIKE  '%$fullname%'";
             }
 
 
@@ -100,8 +100,8 @@ include "./partials/header.php";
                         <td><?php echo $row['p_number'] ?? '' ?></td>
                         <td><?php echo $row['gender'] ?? '' ?></td>
                         <td><?php
-                            if ($row['subject']) {
-                                $subjects = explode(',', $row['subject']);
+                            if ($row['subjects']) {
+                                $subjects = explode(',', $row['subjects']);
                                 if ($subjects) {
                                     foreach ($subjects AS $sub) {
                                         echo  '<span class="subject">' . ucfirst($sub) . '</span>';

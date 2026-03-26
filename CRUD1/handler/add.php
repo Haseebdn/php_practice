@@ -16,7 +16,7 @@ if (isset($_POST) && !empty($_POST)) {
     $pnumber = mysqli_real_escape_string($conn, $_POST['p_number'] ?? '');
     // $profile_img = mysqli_real_escape_string($conn, $_POST['profile_img']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender'] ?? '');
-    $subjects = mysqli_real_escape_string($conn, implode(',', $_POST['subject']));
+    $subjects = mysqli_real_escape_string($conn, implode(',', $_POST['subjects']));
     $teacher_id = mysqli_real_escape_string($conn, $_POST['teacher_id']);
     $pic = $_FILES['profile_img']['name'];
     // $certificates=$_FILES['images']['name'];
@@ -42,7 +42,7 @@ if (isset($_POST) && !empty($_POST)) {
         return;
     }
 
-    $query = "INSERT INTO `infotable` (`user_name`, `u_email`, `p_number`,`profile_img`, `gender`,`subject`,`teacher_id`,`created_at`) VALUES ('$full_name', '$email', '$pnumber','$picName', '$gender','$subjects','$teacher_id','$created_at')";
+    $query = "INSERT INTO `infotable` (`user_name`, `u_email`, `p_number`,`profile_img`, `gender`,`subjects`,`teacher_id`,`created_at`) VALUES ('$full_name', '$email', '$pnumber','$picName', '$gender','$subjects','$teacher_id','$created_at')";
 
     if (mysqli_query($conn, $query)) {
         $response = ['msg' => "Data Inserted Successfully", "success" => true];

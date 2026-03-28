@@ -14,11 +14,14 @@ if (isset($_POST) && !empty($_POST)) {
     $subjects = implode(',', $_POST['subjects']);
     $teacher_id = mysqli_real_escape_string($conn, $_POST['teacher_id']);
     $picName = $_FILES['profile_img']['name'];
-    $query = "SELECT profile_img FROM infotable WHERE id = $id";
+    $query = "SELECT profile_img,certificates FROM infotable WHERE id = $id";
     $sql = mysqli_query($conn, $query);
     $record = mysqli_fetch_row($sql);
     $new_profile_pic = $record[0];
-
+    echo '<pre>';
+    print_r($record);
+    echo '</pre>';
+    die;
     if ($picName) {
 
         $ext = strtolower(pathinfo($picName, PATHINFO_EXTENSION));

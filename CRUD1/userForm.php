@@ -91,7 +91,7 @@
 
          <h6 class="fw-bold">Subjects</h6>
          <div class=" container form-group mb-4 ">
-             <input type="checkbox" name="subject[]" value="english" <?php echo (isset($subjects) && (in_array('english', $subjects))) ? "checked" : "" ?>> English
+             <input type="checkbox" name="subjects[]" value="english" <?php echo (isset($subjects) && (in_array('english', $subjects))) ? "checked" : "" ?>> English
 
              <input class="ms-1" type="checkbox" name="subjects[]" value="urdu" <?php echo (isset($subjects) && (in_array('urdu', $subjects))) ? "checked" : "" ?>> Urdu
 
@@ -119,10 +119,10 @@
              </select>
          </div>
 
-         <!-- <div class="mb-4">
+         <div class="mb-4">
              <label for="">Add Certificates</label>
-             <input type="file" name="images[]" class="form-control" multiple>
-         </div> -->
+             <input type="file" name="certificates[]" class="form-control" multiple>
+         </div>
 
          <hr>
          <div class="w-100 d-flex justify-content-end gap-2">

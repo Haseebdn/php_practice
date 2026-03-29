@@ -50,7 +50,7 @@ include "./partials/header.php";
         </div>
     </form>
     <table class=" w-100 table">
-
+        <!-- Table Header -->
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -66,6 +66,9 @@ include "./partials/header.php";
 
             </tr>
         </thead>
+        <!-- Table Header -->
+
+        <!-- Table Rows -->
         <tbody>
             <?php
 
@@ -103,7 +106,7 @@ include "./partials/header.php";
                             if ($row['subjects']) {
                                 $subjects = explode(',', $row['subjects']);
                                 if ($subjects) {
-                                    foreach ($subjects AS $sub) {
+                                    foreach ($subjects as $sub) {
                                         echo  '<span class="subject">' . ucfirst($sub) . '</span>';
                                     }
                                 }
@@ -112,11 +115,15 @@ include "./partials/header.php";
                         </td>
                         <td><?php echo $row['teacher_name'] ?? 'N/A' ?></td>
                         <td><?php echo $row['stdCreatedAt'] ?? '' ?></td>
+                        <!-- Table Rows -->
+
+                        <!-- Buttons -->
                         <td>
                             <a class="btn btn-sm btn-primary" href="./userForm.php?id=<?php echo $row['stdID'] ?? '' ?>"><i class="fa-solid fa-pen"></i></a>
                             <a class="btn btn-sm btn-danger" href="./handler/delete.php?id=<?php echo $row['stdID'] ?? '' ?>"><i class="fa-solid fa-trash"></i></a>
                             <a href="./handler/view.php?id=<?php echo $row['stdID'] ?? '' ?>" class="fw-bold text-decoration-none">View</>
                         </td>
+                        <!-- Buttons -->
                     </tr>
 
                 <?php

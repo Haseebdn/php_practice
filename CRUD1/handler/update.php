@@ -24,7 +24,7 @@ if (isset($_POST) && !empty($_POST)) {
     }
     // ===========================================
 
-    // ===========================================
+    // =========================================== profile img updation
 
 
     $picName = $_FILES['profile_img']['name'];
@@ -51,9 +51,10 @@ if (isset($_POST) && !empty($_POST)) {
             unlink("../uploads/profilePictures/$record[0]");
         }
     }
-    // ===========================================
+    // =========================================== profile img updation
 
-    // ===========================================
+    // =========================================== certificates updation
+
     $newCertificates = $_FILES['certificates']['name'];
     $nCertificatesTemp = $_FILES['certificates']['tmp_name'];
     $oldCertificates = $record[1];
@@ -96,7 +97,7 @@ if (isset($_POST) && !empty($_POST)) {
             $newNamesStr = implode(',', $newNames);
         }
     }
-    // ===========================================
+    // =========================================== certificates updation
 
 
     // echo '<pre>';
@@ -111,6 +112,8 @@ if (isset($_POST) && !empty($_POST)) {
         return;
     }
 
+    // =========================================== database insertion
+
     $query = "UPDATE `infotable` SET `user_name`='$full_name',`u_email`='$email' ,`p_number`='$pnumber', `gender`='$gender',`profile_img`='$new_profile_pic', `subjects`='$subjects', `teacher_id`='$teacher_id',`certificates`='$newNamesStr' WHERE `id`='$id' ";
 
     if (mysqli_query($conn, $query)) {
@@ -123,4 +126,6 @@ if (isset($_POST) && !empty($_POST)) {
     $is_success = $response['success'] ? 1 : 0;
     header("location:../list.php?success=$is_success");
     exit();
+    
+    // =========================================== database insertion
 }

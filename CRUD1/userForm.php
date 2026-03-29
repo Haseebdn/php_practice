@@ -35,38 +35,46 @@
          <h2 class="fw-bold"><?php echo isset($_GET['id']) ? "Update Student" : "Add Student" ?></h2>
          <hr>
 
+         <!-- Name Div -->
          <div>
              <label class="fw-bold" for="user_name">Name:</label><br>
              <input class="form-control w-100" type="text" id="user_name" name="user_name" value="<?php echo @$record['user_name'] ?>"><br>
          </div>
+         <!-- Name Div -->
 
+         <!-- Email Div -->
          <div>
              <label class="fw-bold" for="u_email">Email:</label><br>
              <input class="form-control w-100" type="email" id="u_email" name="u_email" value="<?php echo @$record['u_email'] ?>"> <br>
          </div>
+         <!-- Email Div -->
 
+         <!-- Phone Number Div -->
          <div>
              <label class="fw-bold" for="p_number">Phone Number:</label><br>
              <input class="form-control w-100" type="tel" id="p_number" name="p_number" value="<?php echo @$record['p_number'] ?>"><br>
          </div>
+         <!-- Phone Number Div -->
 
-
+         <!-- Profile Picture Div -->
          <div class="mb-4">
              <label for="img" class="fw-bold">Profile Picture</label>
              <input type="file" name="profile_img" class="form-control" id="img">
          </div>
 
          <?php
-                     if(isset($_GET['id']) && isset($record['profile_img'])){
-                        ?>
-                    <div>
-                        <img src="./uploads/profilePictures/<?php echo $record['profile_img'] ?>" alt="IMAGE" width="70">
-                    </div>
+            if (isset($_GET['id']) && isset($record['profile_img'])) {
+            ?>
+             <div>
+                 <img src="./uploads/profilePictures/<?php echo $record['profile_img'] ?>" alt="IMAGE" width="70">
+             </div>
 
-                        <?php
-                     }
-                ?>
+         <?php
+            }
+            ?>
+         <!-- Profile Picture Div -->
 
+         <!-- Gender Div -->
          <?php
             $checkValue = "male";
             if (isset($record['gender']) && $record['gender'] == "female") {
@@ -82,7 +90,9 @@
              <input type="radio" name="gender" value="female" <?php echo $checkValue == "female" ? "checked" : "" ?>> Female
              <input type="radio" name="gender" value="other" <?php echo $checkValue == "other" ? "checked" : "" ?>> Other
          </div>
+         <!-- Gender Div -->
 
+         <!-- Subjects Div -->
          <?php
             if (isset($record['subjects'])) {
                 $subjects = explode(',', $record['subjects']);
@@ -99,7 +109,9 @@
 
              <input class="ms-1" type="checkbox" name="subjects[]" value="physics" <?php echo (isset($subjects) && (in_array('physics', $subjects))) ? "checked" : "" ?>> Physics
          </div>
+         <!-- Subjects Div -->
 
+         <!-- Teacher Div -->
          <?php
             $query = "SELECT id,teacher_name FROM `teachers` WHERE is_active=1";
             $sql = mysqli_query($conn, $query);
@@ -110,26 +122,32 @@
              <select class="form-select" id="teacher_name" name="teacher_id">
                  <?php while ($row = mysqli_fetch_assoc($sql)) {
                     ?>
-                     <option value="<?php echo $row['id'] ?>" <?php echo isset($record['teacher_id']) == $row['id']? 'Selected':'' ?>>
-                        <?php echo $row['teacher_name'] ?>
-                    </option>
+                     <option value="<?php echo $row['id'] ?>" <?php echo isset($record['teacher_id']) == $row['id'] ? 'Selected' : '' ?>>
+                         <?php echo $row['teacher_name'] ?>
+                     </option>
                  <?php
                     }
                     ?>
              </select>
          </div>
+         <!-- Teacher Div -->
 
+         <!-- Certificates Div -->
          <div class="mb-4">
              <label for="">Add Certificates</label>
              <input type="file" name="certificates[]" class="form-control" multiple>
          </div>
+         <!-- Certificates Div -->
 
+         <!-- Buttons Div -->
          <hr>
          <div class="w-100 d-flex justify-content-end gap-2">
              <button type="submit" class="btn btn-primary"><?php echo isset($_GET['id']) ? 'Update' :  'Add'  ?></button>
              <a href="./list.php" class="btn btn-secondary">Cancel</a>
 
          </div>
+         <!-- Buttons Div -->
+
      </form>
  </div>
 

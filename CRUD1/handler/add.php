@@ -25,7 +25,8 @@ if (isset($_POST) && !empty($_POST)) {
     }
     //================================
 
-    //================================
+    //================================ profile img
+
     $pic = $_FILES['profile_img']['name'];
 
     $ext = strtolower(pathinfo($pic, PATHINFO_EXTENSION));
@@ -36,9 +37,11 @@ if (isset($_POST) && !empty($_POST)) {
 
     $picName = time() . rand(1, 10000) . '.' . $ext;
     move_uploaded_file($_FILES['profile_img']['tmp_name'], '../uploads/profilePictures/' . $picName);
-    //================================
 
-    //================================
+    //================================ profile img
+
+    //================================ certificates
+
     $certificates = $_FILES['certificates']['name'];
     $cImgsTmp = $_FILES['certificates']['tmp_name'];
     $cImgsNewN = [];
@@ -70,7 +73,8 @@ if (isset($_POST) && !empty($_POST)) {
     // print_r($newNameC);
     // echo '</pre>';
     // die;
-    //================================
+
+    //================================ certificates
 
 
 
@@ -79,6 +83,8 @@ if (isset($_POST) && !empty($_POST)) {
         header("location:../list.php?success=0");
         return;
     }
+
+    //================================ insertion in db 
 
     $query = "INSERT INTO `infotable` (`user_name`, `u_email`, `p_number`,`profile_img`, `gender`,`subjects`,`teacher_id`,`certificates`,`created_at`) VALUES ('$full_name', '$email', '$pnumber','$picName', '$gender','$subjects','$teacher_id','$newNameC','$created_at')";
 
@@ -92,4 +98,6 @@ if (isset($_POST) && !empty($_POST)) {
     $is_success = $response['success'] ? 1 : 0;
     header("location:../list.php?success=$is_success");
     exit();
+    
+    //================================ insertion in db 
 }

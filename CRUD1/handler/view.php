@@ -28,30 +28,50 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         }
         ?>
     </div>
-   
-    <div class="details w-60 d-flex flex-column lh-1 ">
 
+    <div class="details w-60 d-flex flex-column lh-1 ">
+        <!-- ID -->
         <div class="d-flex gap-3 ">
             <p class="fs-6 fw-bold ">ID:</p>
             <p class="fs-6"><?php echo @$record['id'] ?></p><br>
         </div>
+        <!-- ID -->
+        <!-- Name -->
         <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold ">Name:</p>
+            <p class="fs-6 fw-bold ">Full Name:</p>
             <p class="fs-6"><?php echo @$record['user_name'] ?></p><br>
         </div>
+        <!-- Name -->
 
+        <!-- Email -->
         <div class="d-flex gap-3 ">
             <p class="fs-6 fw-bold ">Email:</p>
             <p class="fs-6"><?php echo @$record['u_email'] ?></p><br>
         </div>
+        <!-- Email -->
+
+        <!-- Phone Number -->
         <div class="d-flex gap-3 ">
             <p class="fs-6 fw-bold d-inline ">Phone Number:</p>
             <p class="fs-6"><?php echo @$record['p_number'] ?></p><br>
         </div>
+        <!-- Phone Number -->
+
+        <!-- Date Of Birth -->
+        <div class="d-flex gap-3 ">
+            <p class="fs-6 fw-bold d-inline ">Date Of Birth:</p>
+            <p class="fs-6"><?php echo @$record['dateOfBirth'] ?></p><br>
+        </div>
+        <!-- Date Of Birth -->
+
+        <!-- Gender -->
         <div class="d-flex gap-3 ">
             <p class="fs-6 fw-bold d-inline ">Gender:</p>
             <p class="fs-6"><?php echo ucfirst(@$record['gender']) ?></p><br>
         </div>
+        <!-- Gender -->
+
+        <!-- Subjects -->
         <div class="d-flex gap-3 ">
             <p class="fs-6 fw-bold d-inline "> Subjects: </p>
             <p class="fs-6"><?php
@@ -64,9 +84,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             echo implode(', ', $subjects);
                             ?></p>
         </div>
+        <!-- Subjects -->
 
 
 
+
+        <!-- Teacher -->
         <?php
         $query = "SELECT t.teacher_name 
           FROM infotable AS i 
@@ -82,11 +105,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             <p class="fs-6 fw-bold d-inline">Teacher:</p>
             <p class="fs-6"><?php echo !empty($row['teacher_name']) ? ucwords($row['teacher_name']) : 'N/A'; ?></p>
         </div>
+        <!-- Teacher -->
 
+        <!-- Craeted AT -->
         <div class="d-flex gap-3 ">
             <p class="fs-6 fw-bold ">Created At:</p>
             <p class="fs-6"><?php echo @$record['created_at'] ?></p><br>
         </div>
+        <!-- Craeted AT -->
     </div>
 </div>
 

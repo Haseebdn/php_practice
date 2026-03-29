@@ -37,21 +37,21 @@
 
          <!-- Name Div -->
          <div>
-             <label class="fw-bold" for="user_name">Name:</label><br>
+             <label class="fw-bold" for="user_name">Full Name</label><br>
              <input class="form-control w-100" type="text" id="user_name" name="user_name" value="<?php echo @$record['user_name'] ?>"><br>
          </div>
          <!-- Name Div -->
 
          <!-- Email Div -->
          <div>
-             <label class="fw-bold" for="u_email">Email:</label><br>
+             <label class="fw-bold" for="u_email">Email</label><br>
              <input class="form-control w-100" type="email" id="u_email" name="u_email" value="<?php echo @$record['u_email'] ?>"> <br>
          </div>
          <!-- Email Div -->
 
          <!-- Phone Number Div -->
          <div>
-             <label class="fw-bold" for="p_number">Phone Number:</label><br>
+             <label class="fw-bold" for="p_number">Phone Number</label><br>
              <input class="form-control w-100" type="tel" id="p_number" name="p_number" value="<?php echo @$record['p_number'] ?>"><br>
          </div>
          <!-- Phone Number Div -->
@@ -74,6 +74,13 @@
             ?>
          <!-- Profile Picture Div -->
 
+         <!-- Date Of Birth -->
+         <div class="mb-4">
+             <label for="DOB" class="fw-bold">Date Of Birth</label>
+             <input type="date" id="DOB" name="dateOfBirth" class="form-control" value="<?php echo @$record['dateOfBirth'] ?>" required>
+         </div>
+         <!-- Date Of Birth -->
+
          <!-- Gender Div -->
          <?php
             $checkValue = "male";
@@ -84,7 +91,7 @@
             }
             ?>
 
-         <h6 class="fw-bold">Gender:</h6>
+         <h6 class="fw-bold">Gender</h6>
          <div class="container mb-4">
              <input type="radio" name="gender" value="male" <?php echo $checkValue == "male" ? "checked" : "" ?>> Male
              <input type="radio" name="gender" value="female" <?php echo $checkValue == "female" ? "checked" : "" ?>> Female
@@ -134,8 +141,8 @@
 
          <!-- Certificates Div -->
          <div class="mb-4">
-             <label for="">Add Certificates</label>
-             <input type="file" name="certificates[]" class="form-control" multiple>
+             <label class="fw-bold" for="certificate">Add Certificates</label>
+             <input type="file" name="certificates[]" id="certificate" class="form-control" multiple>
          </div>
          <!-- Certificates Div -->
 

@@ -14,6 +14,7 @@ if (isset($_POST) && !empty($_POST)) {
     $gender = mysqli_real_escape_string($conn, $gender);
     $id = intval($_GET['id']);
     $teacher_id = mysqli_real_escape_string($conn, $_POST['teacher_id']);
+    $dateOfBirth = mysqli_real_escape_string($conn, $_POST['dateOfBirth']);
     // ===========================================
 
     // ===========================================
@@ -114,7 +115,7 @@ if (isset($_POST) && !empty($_POST)) {
 
     // =========================================== database insertion
 
-    $query = "UPDATE `infotable` SET `user_name`='$full_name',`u_email`='$email' ,`p_number`='$pnumber', `gender`='$gender',`profile_img`='$new_profile_pic', `subjects`='$subjects', `teacher_id`='$teacher_id',`certificates`='$newNamesStr' WHERE `id`='$id' ";
+    $query = "UPDATE `infotable` SET `user_name`='$full_name',`u_email`='$email' ,`p_number`='$pnumber', `gender`='$gender',`profile_img`='$new_profile_pic',`dateOfBirth`='$dateOfBirth', `subjects`='$subjects', `teacher_id`='$teacher_id',`certificates`='$newNamesStr' WHERE `id`='$id' ";
 
     if (mysqli_query($conn, $query)) {
         $response = ['msg' => "Data Inserted Successfully", "success" => true];
@@ -126,6 +127,6 @@ if (isset($_POST) && !empty($_POST)) {
     $is_success = $response['success'] ? 1 : 0;
     header("location:../list.php?success=$is_success");
     exit();
-    
+
     // =========================================== database insertion
 }

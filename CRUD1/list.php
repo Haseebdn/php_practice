@@ -1,6 +1,14 @@
 <?php
 include "./handler/connection.php";
 include "./partials/header.php";
+
+$limit = 10;
+
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) $page = 1;
+
+$offset = ($page - 1) * $limit;
 ?>
 
 <style>
@@ -71,7 +79,11 @@ include "./partials/header.php";
         <!-- Table Rows -->
         <tbody>
             <?php
+            $countQuery = "SELECT COUNT(*) as total FROM infotable";
+            $countResult = mysqli_query($conn, $countQuery);
+            $totalRows = mysqli_fetch_assoc($countResult)['total'];
 
+            $totalPages = ceil($totalRows / $limit);
 
             $query = "SELECT t.*,i.*, 
                 i.id AS stdID, 
@@ -80,13 +92,13 @@ include "./partials/header.php";
                 LEFT JOIN teachers AS t 
                 ON i.teacher_id = t.id";
 
-            if (isset($_GET['fullName'])) {
-                $fullname = $_GET['fullName'];
-                $query .= " WHERE i.full_name LIKE '%$fullname%' OR t.teacher_name LIKE  '%$fullname%'";
+            if (isset($_GET['search_name']) && $_GET['search_name'] != '') {
+                $fullname = $_GET['search_name'];
+                $query .= " WHERE i.user_name LIKE '%$fullname%' OR t.teacher_name LIKE '%$fullname%'";
             }
 
 
-            $query = $query . " ORDER BY stdID ASC";
+            $query .= " ORDER BY stdID ASC LIMIT $limit OFFSET $offset";
 
             $mysql = mysqli_query($conn, $query);
 
@@ -141,6 +153,42 @@ include "./partials/header.php";
 
         </tbody>
     </table>
+    <!-- Pagination Added -->
+    <nav>
+        <ul class="pagination justify-content-center">
+
+
+            <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
+                <a class="page-link" href="?page=<?php echo $page - 1; ?>&search_name=<?php echo $_GET['search_name'] ?? ''; ?>">Previous</a>
+            </li>
+
+            <?php
+            for ($i = 1; $i <= $totalPages; $i++) {
+
+
+                if ($i <= 3 || $i > $totalPages - 3 || abs($i - $page) <= 1) {
+
+            ?>
+                    <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>&search_name=<?php echo $_GET['search_name'] ?? ''; ?>"">
+                            <?php echo $i; ?>
+                        </a>
+                    </li>
+            <?php
+                } elseif ($i == 4 || $i == $totalPages - 3) {
+                    echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                }
+            }
+            ?>
+
+
+            <li class=" page-item <?php if ($page >= $totalPages) echo 'disabled'; ?>">
+                            <a class="page-link" href="?page=<?php echo $page + 1; ?>&search_name=<?php echo $_GET['search_name'] ?? ''; ?>">Next</a>
+                    </li>
+
+        </ul>
+    </nav>
+    <!-- Pagination Added -->
 
 </div>
 

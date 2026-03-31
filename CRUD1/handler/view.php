@@ -15,106 +15,166 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     // die();
 } ?>
 
-<div class="container my-4 w-100 d-flex gap-4 ">
-    <div class="image w-25 ">
+
+<div class="container d-flex my-4 flex-column align-items-center w-100">
+    <!-- Image Div -->
+    <div class="image w-50 d-flex justify-content-center align-items-center">
         <?php
         if (isset($_GET['id']) && isset($record['profile_img'])) {
         ?>
-            <div>
-                <img src="../uploads/profilePictures/<?php echo $record['profile_img'] ?>" alt="IMAGE" width="80%">
+            <div class="w-50 d-flex justify-content-center align-items-center">
+                <img src="../uploads/profilePictures/<?php echo $record['profile_img'] ?>" alt="IMAGE" class=" border p-1 border-primary border-4 rounded rounded-circle" width="100%">
             </div>
 
         <?php
         }
         ?>
     </div>
+    <!-- Image Div -->
+    <div class="container mt-5 w-75">
 
-    <div class="details w-60 d-flex flex-column lh-1 ">
-        <!-- ID -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold ">ID:</p>
-            <p class="fs-6"><?php echo @$record['id'] ?></p><br>
-        </div>
-        <!-- ID -->
-        <!-- Name -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold ">Full Name:</p>
-            <p class="fs-6"><?php echo @$record['user_name'] ?></p><br>
-        </div>
-        <!-- Name -->
+        <table class="table table-striped-columns">
+            <tbody>
+                <tr>
+                    <!-- ID -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">ID</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo @$record['id'] ?></p>
+                    </td>
+                    <!-- ID -->
 
-        <!-- Email -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold ">Email:</p>
-            <p class="fs-6"><?php echo @$record['u_email'] ?></p><br>
-        </div>
-        <!-- Email -->
+                    <!-- Full Name -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Full Name</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo ucfirst(@$record['user_name']) ?></p>
+                    </td>
+                    <!-- Full Name -->
+                </tr>
+                <tr>
+                    <!-- Email -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Email</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo @$record['u_email'] ?></p>
+                    </td>
+                    <!-- Email -->
 
-        <!-- Phone Number -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold d-inline ">Phone Number:</p>
-            <p class="fs-6"><?php echo @$record['p_number'] ?></p><br>
-        </div>
-        <!-- Phone Number -->
+                    <!-- Phone Number -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Phone Number</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo @$record['p_number'] ?></p>
+                    </td>
+                    <!-- Phone Number -->
+                </tr>
+                <tr>
+                    <!-- Date of Birth -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Date Of Birth</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo @$record['dateOfBirth'] ?></p>
+                    </td>
+                    <!-- Date of Birth -->
 
-        <!-- Date Of Birth -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold d-inline ">Date Of Birth:</p>
-            <p class="fs-6"><?php echo @$record['dateOfBirth'] ?></p><br>
-        </div>
-        <!-- Date Of Birth -->
+                    <!-- Gender -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Gender</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo ucfirst(@$record['gender']) ?></p>
+                    </td>
+                    <!-- Gender -->
+                </tr>
+                <tr>
+                    <!-- Subjects -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Subjects</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 mb-0 text-center mb-0"><?php
+                                                                $subjects = explode(',', @$record['subjects']);
 
-        <!-- Gender -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold d-inline ">Gender:</p>
-            <p class="fs-6"><?php echo ucfirst(@$record['gender']) ?></p><br>
-        </div>
-        <!-- Gender -->
+                                                                $subjects = array_map(function ($item) {
+                                                                    return ucwords(trim($item));
+                                                                }, $subjects);
 
-        <!-- Subjects -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold d-inline "> Subjects: </p>
-            <p class="fs-6"><?php
-                            $subjects = explode(',', @$record['subjects']);
+                                                                echo implode(', ', $subjects);
+                                                                ?>
+                        </p>
+                    </td>
+                    <!-- Subjects -->
 
-                            $subjects = array_map(function ($item) {
-                                return ucwords(trim($item));
-                            }, $subjects);
-
-                            echo implode(', ', $subjects);
-                            ?></p>
-        </div>
-        <!-- Subjects -->
-
-
-
-
-        <!-- Teacher -->
-        <?php
-        $query = "SELECT t.teacher_name 
+                    <?php
+                    $query = "SELECT t.teacher_name 
           FROM infotable AS i 
           LEFT JOIN teachers AS t 
           ON i.teacher_id = t.id
           WHERE i.id = '$id'";
 
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_assoc($result);
-        ?>
+                    $result = mysqli_query($conn, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    ?>
+                    <!-- Teacher -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Teacher</p>
+                    </td>
+                    <td>
+                        <p class="fs-6 text-center mb-0"><?php echo !empty($row['teacher_name']) ? ucwords($row['teacher_name']) : 'N/A'; ?></p>
+                    </td>
+                    <!-- Teacher -->
+                </tr>
+                <tr>
+                    <!-- Created At  -->
+                    <td>
+                        <p class="fs-6 mb-0 fw-bold ">Created At</p>
 
-        <div class="d-flex gap-3">
-            <p class="fs-6 fw-bold d-inline">Teacher:</p>
-            <p class="fs-6"><?php echo !empty($row['teacher_name']) ? ucwords($row['teacher_name']) : 'N/A'; ?></p>
-        </div>
-        <!-- Teacher -->
+                    </td>
+                    <td>
+                        <p class="fs-6 mb-0 text-center"><?php echo @$record['created_at'] ?></p>
+                    </td>
+                    <!-- Created At  -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <!-- Craeted AT -->
-        <div class="d-flex gap-3 ">
-            <p class="fs-6 fw-bold ">Created At:</p>
-            <p class="fs-6"><?php echo @$record['created_at'] ?></p><br>
+    <!-- Certificates -->
+    <div class="container mt-4 w-75">
+        <h3>Certificates</h3>
+
+        <div class="container  w-100 d-flex flex-wrap gap-3">
+            <?php
+            if (!empty($record['certificates'])) {
+
+                $certificates = explode(',', $record['certificates']);
+
+                foreach ($certificates as $cert) {
+            ?>
+                    <img src="../uploads/certificates/<?php echo trim($cert); ?>"
+                        alt="Certificate"
+                        width="30%"
+                        class="border p-1 border-success rounded">
+            <?php
+                }
+            } else {
+                echo "<p>No certificates found</p>";
+            }
+            ?>
         </div>
-        <!-- Craeted AT -->
+        <!-- Certificates -->
+
+
     </div>
 </div>
+</div>
+
 
 <?php
 include "../partials/footer.php";

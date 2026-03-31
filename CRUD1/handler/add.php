@@ -21,6 +21,7 @@ if (isset($_POST) && !empty($_POST)) {
     //================================
 
     //================================
+    $subjects = '';
     if (isset($_POST['subjects'])) {
         $subjects = mysqli_real_escape_string($conn, implode(',', $_POST['subjects']));
     }
@@ -34,6 +35,8 @@ if (isset($_POST) && !empty($_POST)) {
 
     if (!in_array($ext, ['jpg', 'jpeg', 'png'])) {
         $response = ['msg' => "Data Insertion failed. Error: Invalid file format", "success" => false];
+         header("location:../list.php?success=0");
+         exit();
     }
 
     $picName = time() . rand(1, 10000) . '.' . $ext;
@@ -56,7 +59,7 @@ if (isset($_POST) && !empty($_POST)) {
             if (!in_array($ext, ['jpg', 'jpeg', 'png'])) {
                 $response = ['msg' => "Data Insertion failed. Error: Invalid file format", "success" => false];
                 header("location:../list.php?success=0");
-                return;
+                exit();
             }
 
             $cImgExt[] = $ext;

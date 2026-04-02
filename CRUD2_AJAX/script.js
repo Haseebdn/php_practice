@@ -72,3 +72,41 @@ function fetchcategory() {
 $('#productModal').on('shown.bs.modal', function () {
     fetchcategory();
 });
+
+
+function fetchSubcategories(category_id) {
+    $.ajax({
+        url: api_url + "/fetch-modal.php",
+        method: "GET",
+        data: {
+            "c": "fetchSubcat",
+            "category_id": category_id
+        },
+        success: function (res) {
+            let response = JSON.parse(res);
+            // console.log(response);
+            if (response.status == 200) {
+                let html = '<option value="">Select Subcategory</option>';
+                response.data.forEach(subcat => {
+                    html += `
+                        <option value="${subcat.c_id}">${subcat.c_name}</option>
+                    `;
+                });
+                $("#productSubcats").html(html);
+            }
+        }
+    });
+}
+
+
+
+$("#productCats").on("change", function () {
+    let category_id = $(this).val();
+    // console.log(category_id);
+
+    if (category_id) {
+        fetchSubcategories(category_id);
+    } else {
+        $("#productSubcats").html('<option value="">Select Subcategory</option>');
+    }
+});

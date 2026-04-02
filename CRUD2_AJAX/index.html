@@ -52,32 +52,71 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="productModalLabel">Create Product</h1>
+                    <h1 class="modal-title fs-5 fw-bold" id="productModalLabel">Add Product</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="category" class="col-form-label">Category:</label>
+
+                        <div class="mb-2">
+                            <label class="fw-bold" for="category" class="col-form-label">Category:</label>
                             <select name="category" id="productCats" class="form-select">
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="subcategory" class="col-form-label">Subcategory:</label>
+
+                        <div class="mb-2">
+                            <label class="fw-bold" for="subcategory" class="col-form-label">Subcategory:</label>
                             <select name="subcategory" id="productSubcats" class="form-select">
                             </select>
                         </div>
 
-
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                        <div class="mb-2">
+                            <label class="fw-bold" for="product_name">Product:</label>
+                            <input class="form-control" type="text" name="p_name" id="product_name">
                         </div>
+
+                        <div class="mb-2">
+                            <label class="fw-bold" for="img">Image:</label>
+                            <input class="form-control" type="file" name="p_thumbnail" id="img">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="fw-bold" for="qty">Quantity:</label>
+                            <input class="form-control" type="number" name="qty" id="qty">
+                        </div>
+                        
+                        
+                        <div class="mb-2">
+                            <label class="fw-bold" for="message-text" class="col-form-label">Description:</label>
+                            <textarea class="form-control" name="p_description" id="message-text"></textarea>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label class="fw-bold" for="p_price">Purchase Price:</label>
+                            <input class="form-control" type="number" name="p_price" id="p_price">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="fw-bold" for="s_price">Sale Price:</label>
+                            <input class="form-control" type="number" name="s_price" id="s_price">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="fw-bold" for="tax">Tax:</label>
+                            <input class="form-control" type="number" name="tax" id="tax">
+                        </div>
+
+                        <div class="mb-2 d-flex gap-2">
+                            <label class="fw-bold" for="status">Status:</label>
+                            <input  type="radio" name="is_active"  value="Active">Active
+                            <input  type="radio" name="is_active"  value="Inactive">Inactive
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>

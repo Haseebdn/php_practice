@@ -110,3 +110,27 @@ $("#productCats").on("change", function () {
         $("#productSubcats").html('<option value="">Select Subcategory</option>');
     }
 });
+
+
+$("#p_submit").on("click", function (e) {
+    e.preventDefault();
+
+    let form = document.querySelector("#product_form");
+    let formData = new FormData(form);
+    $.ajax({
+        url: api_url + "/add.php",
+        method: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+            let response = JSON.parse(res);
+            if (response.status == 200) {
+                $("#product_form")[0].reset();
+                $("#productModal").modal("hide");
+                fetchdata();
+
+            }
+        }
+    });
+});

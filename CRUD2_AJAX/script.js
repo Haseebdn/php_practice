@@ -14,9 +14,11 @@ function fetchdata() {
 
             if (response.status == 200) {
                 let innerHtml = '';
+                // console.log(response);
+
                 response.data.forEach(product => {
                     innerHtml += `<tr id="product_${product.p_id}">
-						<td>Image</td>
+						<td><img  src="./uploads/thumbnails/${product.p_thumbnail || ""}" width="50" /></td>
 						<td>${product.categoryName || ""}</td>
 						<td>${product.subcategoryName || ""}</td>
 						<td>${product.p_name}</td>
@@ -27,7 +29,7 @@ function fetchdata() {
 						<td>${product.tax}</td>
 						<td><span class="badge bg-primary">${product.is_active == 1 ? "Active" : "Inactive"}</span></td>
 						<td>
-                            <button class="btn btn-info btn-sm">Edit</button>
+                            <button class="btn btn-info btn-sm"  onclick="editdata(${product.p_id});">Edit</button>
                             <button class="btn btn-danger btn-sm">Delete</button>
                         </td>
 					</tr>
@@ -44,7 +46,7 @@ function fetchdata() {
 
 fetchdata();
 
-function fetchcategory() {
+function fetchcategory(category_id = "") {
     $.ajax({
         url: api_url + "/fetch-modal.php",
         method: "GET",
@@ -52,29 +54,30 @@ function fetchcategory() {
         success: function (res) {
             let response = JSON.parse(res);
             // console.log(response);
+            // console.log("calling fetchcategories==>",category_id);
             if (response.status == 200) {
                 let html = '<option value="">Select Category</option>';
                 response.data.forEach(category => {
+                    let selected = category_id == category.c_id ? "selected" : "";
                     html += `
-                        <option value="${category.c_id}">${category.c_name}</option>
+                        <option value="${category.c_id}" ${selected}>${category.c_name}</option>
                     `;
                 });
 
-                console.log(html);
+                // console.log(html);
 
                 $("#productCats").html(html);
+
             }
         }
     })
 }
 
 
-$('#productModal').on('shown.bs.modal', function () {
-    fetchcategory();
-});
 
 
-function fetchSubcategories(category_id) {
+
+function fetchSubcategories(category_id, subcategory_id = "") {
     $.ajax({
         url: api_url + "/fetch-modal.php",
         method: "GET",
@@ -88,8 +91,11 @@ function fetchSubcategories(category_id) {
             if (response.status == 200) {
                 let html = '<option value="">Select Subcategory</option>';
                 response.data.forEach(subcat => {
+                    // console.log(subcat);
+
+                    let selected = (subcat.c_id == subcategory_id) ? "selected" : "";
                     html += `
-                        <option value="${subcat.c_id}">${subcat.c_name}</option>
+                        <option value="${subcat.c_id}" ${selected}>${subcat.c_name}</option>
                     `;
                 });
                 $("#productSubcats").html(html);
@@ -100,15 +106,13 @@ function fetchSubcategories(category_id) {
 
 
 
+
+
 $("#productCats").on("change", function () {
     let category_id = $(this).val();
     // console.log(category_id);
+    fetchSubcategories(category_id);
 
-    if (category_id) {
-        fetchSubcategories(category_id);
-    } else {
-        $("#productSubcats").html('<option value="">Select Subcategory</option>');
-    }
 });
 
 
@@ -133,4 +137,70 @@ $("#p_submit").on("click", function (e) {
             }
         }
     });
+});
+
+
+function editdata(Id) {
+    if (Id) {
+        $.ajax({
+            url: api_url + "/fetch-modal.php",
+            method: "GET",
+            data: { "c": "fetchdata", "product_id": Id },
+            success: function (res) {
+                let response = JSON.parse(res);
+                let product = response.data;
+
+                if (response.status == 200) {
+
+                    $("#productModal").modal("show");
+                    $("#productModal").modal("show");
+                    $("#productModalLabel").text("Update Product");
+
+                    $("#preview_box").html('');
+
+                    $("#product_id").val(product.p_id);
+                    $("#p_submit").text("Update");
+
+                    fetchcategory(product.category_id);
+
+
+                    fetchSubcategories(product.category_id, product.subcategory_id);
+
+
+                    $("#product_name").val(product.p_name);
+                    $("#qty").val(product.qty);
+                    $("#p_description").val(product.p_description);
+                    $("#p_price").val(product.p_price);
+                    $("#s_price").val(product.s_price);
+                    $("#tax").val(product.tax);
+
+                    $('input[name="is_active"][value="' + product.is_active + '"]').prop("checked", true);
+
+                    if (product.p_thumbnail) {
+                        $("#preview_box").html(`
+                            <div>
+                                <img src="./uploads/thumbnails/${product.p_thumbnail}" 
+                                     width="80" 
+                                     style="border:1px solid #ddd;">
+                            </div>
+                        `);
+                    }
+                }
+            }
+        });
+    }
+}
+
+
+
+
+$('#productModal').on('hidden.bs.modal', function () {
+    $("#product_form")[0].reset();
+    $("#preview_box").html('');
+    $("#p_thumbnail").val('');
+
+    $("#productCats").val("");
+    $("#p_submit").text("Submit");
+    $("#productSubcats").html('<option value="">Select Subcategory</option>');
+    $("#productModalLabel").text("Add Product");
 });

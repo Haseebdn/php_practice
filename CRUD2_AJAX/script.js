@@ -121,6 +121,8 @@ $("#p_submit").on("click", function (e) {
 
     let form = document.querySelector("#product_form");
     let formData = new FormData(form);
+    // console.log(formData);
+
     $.ajax({
         url: api_url + "/add.php",
         method: "POST",
@@ -149,6 +151,7 @@ function editdata(Id) {
             success: function (res) {
                 let response = JSON.parse(res);
                 let product = response.data;
+                // console.log(product);
 
                 if (response.status == 200) {
 
@@ -166,7 +169,7 @@ function editdata(Id) {
 
                     fetchSubcategories(product.category_id, product.subcategory_id);
 
-
+                    $("#editIndex").val(product.p_id);
                     $("#product_name").val(product.p_name);
                     $("#qty").val(product.qty);
                     $("#p_description").val(product.p_description);
@@ -201,6 +204,6 @@ $('#productModal').on('hidden.bs.modal', function () {
 
     $("#productCats").val("");
     $("#p_submit").text("Submit");
-    $("#productSubcats").html('<option value="">Select Subcategory</option>');
+    $("#productSubcats").html('');
     $("#productModalLabel").text("Add Product");
 });

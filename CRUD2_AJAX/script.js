@@ -2,6 +2,7 @@ const tbody = $("#product_body").html();
 
 const api_url = "http://php_pr.test/CRUD2_AJAX/api/"
 
+// viewing data
 
 function fetchdata() {
     $.ajax({
@@ -11,11 +12,9 @@ function fetchdata() {
             let response = JSON.parse(res);
             // console.log(response);
 
-
             if (response.status == 200) {
                 let innerHtml = '';
                 // console.log(response);
-
                 response.data.forEach(product => {
                     innerHtml += `<tr id="product_${product.p_id}">
 						<td><img  src="./uploads/thumbnails/${product.p_thumbnail || ""}" width="50" /></td>
@@ -30,10 +29,10 @@ function fetchdata() {
 						<td><span class="badge bg-primary">${product.is_active == 1 ? "Active" : "Inactive"}</span></td>
 						<td>
                             <button class="btn btn-info btn-sm"  onclick="editdata(${product.p_id});">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-					</tr>
-                    `;
+                            <button class="btn btn-danger btn-sm" onclick="deletedata(${product.p_id})">Delete</button>
+                            </td>
+                            </tr>
+                            `;
                 });
 
                 $("#product_body").html(innerHtml);
@@ -45,6 +44,11 @@ function fetchdata() {
 };
 
 fetchdata();
+
+// viewing data
+
+
+// fetch categories
 
 function fetchcategory(category_id = "") {
     $.ajax({
@@ -73,9 +77,20 @@ function fetchcategory(category_id = "") {
     })
 }
 
+// fetch categories
 
 
+// fetch subcategories
 
+$("#productCats").on("change", function () {
+    let category_id = $(this).val();
+    if (category_id) {
+        fetchSubcategories(category_id);
+    } else {
+        $("#productSubcats").html('<option value="">Select Subcategory</option>');
+    }
+
+});
 
 function fetchSubcategories(category_id, subcategory_id = "") {
     $.ajax({
@@ -95,7 +110,7 @@ function fetchSubcategories(category_id, subcategory_id = "") {
 
                     let selected = (subcat.c_id == subcategory_id) ? "selected" : "";
                     html += `
-                        <option value="${subcat.c_id}" ${selected}>${subcat.c_name}</option>
+                    <option value="${subcat.c_id}" ${selected}>${subcat.c_name}</option>
                     `;
                 });
                 $("#productSubcats").html(html);
@@ -104,17 +119,9 @@ function fetchSubcategories(category_id, subcategory_id = "") {
     });
 }
 
+// fetch subcategories
 
-
-
-
-$("#productCats").on("change", function () {
-    let category_id = $(this).val();
-    // console.log(category_id);
-    fetchSubcategories(category_id);
-
-});
-
+// submition and updation  
 
 $("#p_submit").on("click", function (e) {
     e.preventDefault();
@@ -141,6 +148,10 @@ $("#p_submit").on("click", function (e) {
     });
 });
 
+// submition and updation 
+
+
+// editing data  
 
 function editdata(Id) {
     if (Id) {
@@ -185,8 +196,8 @@ function editdata(Id) {
                                 <img src="./uploads/thumbnails/${product.p_thumbnail}" 
                                      width="80" 
                                      style="border:1px solid #ddd;">
-                            </div>
-                        `);
+                                     </div>
+                                     `);
                     }
                 }
             }
@@ -194,16 +205,43 @@ function editdata(Id) {
     }
 }
 
+// editing data  
 
 
+// delete
+
+function deletedata(cat_id) {
+    if (cat_id) {
+        $.ajax({
+            url: api_url + "/delete.php",
+            method: "post",
+            data: { "ID": cat_id },
+            success: function (res) {
+                let response = JSON.parse(res);
+                if (response.status == 200) {
+                    fetchdata();
+                }
+
+            }
+        })
+    }
+
+}
+
+// delete
+
+
+// reset form
 
 $('#productModal').on('hidden.bs.modal', function () {
     $("#product_form")[0].reset();
     $("#preview_box").html('');
     $("#p_thumbnail").val('');
-
+    
     $("#productCats").val("");
     $("#p_submit").text("Submit");
     $("#productSubcats").html('');
     $("#productModalLabel").text("Add Product");
 });
+
+// reset form

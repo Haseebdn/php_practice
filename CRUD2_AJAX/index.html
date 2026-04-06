@@ -10,14 +10,24 @@
 </head>
 
 <body>
+    <!-- main container -->
+
     <div class="container-fluid">
+
+        <!-- header div -->
         <div class="container d-flex justify-content-between align-items-center">
             <h2 class=" my-4 fw-bold">Product CRUD</h2>
             <button class="ms-auto btn btn-primary " data-bs-toggle="modal" data-bs-target="#productModal"
                 onclick="fetchcategory()">Add</button>
         </div>
+        <!-- header div -->
+
+        <!-- table div -->
         <div class="table-responsive">
             <table class="table">
+
+                <!-- table head -->
+
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -34,6 +44,8 @@
                     </tr>
                 </thead>
 
+                <!-- table head -->
+
                 <tbody id="product_body">
 
                 </tbody>
@@ -42,91 +54,130 @@
         </div>
     </div>
 
+    <!-- table div -->
 
 
 
 
 
 
+    <!-- modal -->
 
     <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+
+                <!-- modal head -->
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 fw-bold" id="productModalLabel">Add Product</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <!-- modal head -->
+
+                <!-- modal body -->
                 <div class="modal-body">
                     <form id="product_form">
 
+                        <!-- category div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="category" class="col-form-label">Category:</label>
                             <select name="category" id="productCats" class="form-select">
                             </select>
                         </div>
+                        <!-- category div -->
 
+                        <!-- edit -->
                         <input type="hidden" name="editIndex" id="editIndex">
+                        <!-- edit -->
+
+                        <!-- subcategory div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="subcategory" class="col-form-label">Subcategory:</label>
                             <select name="subcategory" id="productSubcats" class="form-select">
                             </select>
                         </div>
+                        <!-- subcategory div -->
 
+                        <!-- product name div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="product_name">Product:</label>
                             <input class="form-control" type="text" name="p_name" id="product_name">
                         </div>
+                        <!-- product name div -->
 
+                        <!-- image -->
                         <div class="mb-2">
                             <label class="fw-bold" for="img">Image:</label>
                             <input class="form-control" type="file" name="p_thumbnail" id="img">
                         </div>
 
-                        <div id="preview_box" class="mb-2">
-                            
-                        </div>
+                        <div id="preview_box" class="mb-2"></div>
+                        <!-- image -->
 
+                        <!-- quantity div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="qty">Quantity:</label>
                             <input class="form-control" type="number" name="qty" id="qty">
                         </div>
+                        <!-- quantity div -->
 
-
+                        <!-- description div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="message-text" class="col-form-label">Description:</label>
                             <textarea class="form-control" name="p_description" id="p_description"></textarea>
                         </div>
+                        <!-- description div -->
 
+                        <!-- purchase price div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="p_price">Purchase Price:</label>
                             <input class="form-control" type="number" name="p_price" id="p_price">
                         </div>
+                        <!-- purchase price div -->
 
+                        <!-- sale price div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="s_price">Sale Price:</label>
                             <input class="form-control" type="number" name="s_price" id="s_price">
                         </div>
+                        <!-- sale price div -->
 
+                        <!-- tax div -->
                         <div class="mb-2">
                             <label class="fw-bold" for="tax">Tax:</label>
                             <input class="form-control" type="number" name="tax" id="tax">
                         </div>
+                        <!-- tax div -->
 
+                        <!-- status div -->
                         <div class="mb-2 d-flex gap-2">
                             <label class="fw-bold" for="status">Status:</label>
                             <input type="radio" name="is_active" value="1" class="status">Active
                             <input type="radio" name="is_active" value="0" class="status">Inactive
                         </div>
+                        <!-- status div -->
 
                     </form>
                 </div>
+                <!-- modal body -->
+
+                <!-- modal footer -->
                 <div class="modal-footer">
+
+                    <!-- buttons -->
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" id="p_submit" class="btn btn-primary">Submit</button>
+                    <!-- buttons -->
+
                 </div>
+
+                <!-- modal footer -->
+
             </div>
         </div>
     </div>
+
+    <!-- modal -->
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
